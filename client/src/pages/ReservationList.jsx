@@ -55,11 +55,7 @@ const ReservationList = () => {
           booking = true, 
 
           
-          // listingPhotoPaths, 
-          // city, 
-          // province, 
-          // country, 
-          // category 
+          
         }) => (
           <ListingCard
             key={listingId._id} 

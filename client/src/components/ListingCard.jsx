@@ -53,9 +53,10 @@ const ListingCard = ({
         const response = await fetch(`http://localhost:4000/user/${user._id}/${listingId}`, {
           method: "PATCH",
           headers: {
-            "Content-Type": "application/json",
+              "Content-Type": "application/json",
           },
-        });
+      });
+      
         if (!response.ok) {
           throw new Error("Failed to update wishlist");
         }
@@ -68,7 +69,9 @@ const ListingCard = ({
   };
 
   // Logging user and creator IDs for debugging
-  console.log('Logged in user ID:', user?._id);
+  console.log("User ID:", user._id);
+  console.log("Listing ID:", listingId);
+
   console.log('Creator ID:', creator?._id);
 
   return (
