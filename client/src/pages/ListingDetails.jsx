@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Header from '../components/Header';
@@ -14,20 +14,12 @@ import { useSelector } from 'react-redux';
 
 const ListingDetails = () => {
    const [loading, setLoading] = useState(true);
-  
    const { listingId } = useParams();
    const [listing, setListing] = useState(null);
-  
-   
-   console.log("listingId1:", listingId);
-   
+
    const getListingDetails = async () => {
      try {
-       const response = await fetch(`http://localhost:4000/listing/${listingId}`, {
-         method: "GET",
-       });
-
-       console.log("listing id", listingId);
+       const response = await fetch(`http://localhost:4000/listing/${listingId}`, { method: "GET" });
        const data = await response.json();
        setListing(data);
        setLoading(false);
@@ -40,13 +32,9 @@ const ListingDetails = () => {
    const customerId = useSelector((state) => state.user?._id);
    const isOwner = listing?.creator?._id === customerId;
    const navigate = useNavigate();
-   console.log("customerId", customerId);
-
-   console.log("Listing Data:", listing);
 
    const handleSubmit = async () => {
      if (!customerId) {
-       console.log("User is not logged in");
        navigate('/login');
        return;
      }
@@ -63,7 +51,6 @@ const ListingDetails = () => {
          description: listing?.description,
        };
 
-       console.log("Booking Form:", bookingForm); 
        const response = await fetch("http://localhost:4000/booking/create", { 
          method: "POST",
          headers: {
@@ -83,16 +70,13 @@ const ListingDetails = () => {
      }
    };
 
-   // Booking Calendar
    const [dateRange, setDateRange] = useState([{
      startDate: new Date(),
      endDate: new Date(),
      key: "selection",
    }]);
 
-   const handleSelect = (ranges) => {
-     setDateRange([ranges.selection]);
-   };
+   const handleSelect = (ranges) => setDateRange([ranges.selection]);
 
    const start = new Date(dateRange[0].startDate);
    const end = new Date(dateRange[0].endDate);
@@ -112,33 +96,32 @@ const ListingDetails = () => {
          <div className="flex-1">
            <div>
              <h3 className="h3">{listing?.title}</h3>
-             <div className="flex item-center gap-x-1 pb-1">
-               <span>
-                 <HiOutlineLocationMarker />
-               </span>
+             <div className="flex items-center gap-x-1 pb-1">
+               <HiOutlineLocationMarker />
                <p>
                  {listing?.type} in {listing?.city}, {listing?.province}, {listing?.country}
                </p>
              </div>
-             <div className="flex item-center gap-4 capitalize pt-5">
+             <div className="flex items-center gap-4 capitalize pt-5">
                <span>
-                 <FaPersonShelter className="text-x1" />
+                 <FaPersonShelter className="text-xl" />
                  <p>{listing?.guestCount} Guests</p>
                </span>
                <span>
-                 <MdOutlineBedroomChild className="text-x1" />
+                 <MdOutlineBedroomChild className="text-xl" />
                  <p>{listing?.bedroomCount} Bedrooms</p>
                </span>
                <span>
-                 <MdBed className="text-x1" />
+                 <MdBed className="text-xl" />
                  <p>{listing?.bedCount} Beds</p>
                </span>
                <span>
-                 <MdOutlineBathroom className="text-x1" />
+                 <MdOutlineBathroom className="text-xl" />
                  <p>{listing?.bathroomCount} Bathrooms</p>
                </span>
              </div>
            </div>
+
            <div className="flex items-center gap-x-3 py-6">
              <img
                src={`http://localhost:4000/${listing?.creator?.profileImagePath?.replace("public", "")}`}
@@ -147,26 +130,28 @@ const ListingDetails = () => {
                width={44}
                className="rounded-full"
              />
-             <h5 className="medium-14 capitalize gap-3">
+             <h5 className="medium-14 capitalize">
                HOSTED BY {listing?.creator?.firstname} {listing?.creator?.lastname}
              </h5>
            </div>
            <p className="pb-3">{listing?.description}</p>
+
            {/* Amenities/Facilities */}
            <div>
-             <h4 className="h4 py-3">How this place offers?</h4>
-             <ul className="flex item-center flex-wrap gap-3">
+             <h4 className="h4 py-3">What this place offers?</h4>
+             <ul className="flex items-center flex-wrap gap-3">
                {listing?.amenities?.[0]?.split(",").map((item, i) => (
-               <li key={i} className="flex items-center gap-3 bg-white ring-1 ring-slate-900/5 p-4 rounded">
+                 <li key={i} className="flex items-center gap-3 bg-white ring-1 ring-slate-900/5 p-4 rounded">
                    <div>{facilities.find((f) => f.name === item)?.icon}</div>
                    <p>{item}</p>
                  </li>
                ))}
              </ul>
            </div>
+
            {/* Booking Calendar */}
            <div className="calendar-container">
-             <h4>How long you want to stay</h4>             
+             <h4>How long do you want to stay?</h4>
              <DateRange
                ranges={dateRange}
                onChange={handleSelect}
@@ -179,22 +164,16 @@ const ListingDetails = () => {
 
            <div className="flex gap-4">
              <div>
-               {dayCount > 1 ? (
-                 <div className="flexStart gap-x-2 pt-2">
-                   <h5 className="bold-16">Total Stay:</h5>
-                   <p className="relative pt-0.5">&#8377;{listing?.price} x {dayCount}</p>
-                 </div>
-               ) : (
-                 <div className="flexStart gap-x-2 pt-2">
-                   <h5 className="bold-16">Total stay:</h5>
-                   <p className="relative pt-0.5">&#8377;{listing?.price} x {dayCount} night</p>
-                 </div>
-               )}
-               <div className="flexStart gap-x-2 pt-2">
+               <div className="flex-start gap-x-2 pt-2">
+                 <h5 className="bold-16">Total Stay:</h5>
+                 <p className="relative pt-0.5">&#8377;{listing?.price} x {dayCount}</p>
+               </div>
+               <div className="flex-start gap-x-2 pt-2">
                  <h5 className="bold-16">Total Price:</h5>
                  <p className="relative pt-0.5">&#8377;{listing?.price * dayCount}</p>
                </div>
              </div>
+
              <div>
                <div className="flex items-center gap-x-3 pt-2">
                  <span className="bold-15">Start Date:</span>
@@ -225,7 +204,7 @@ const ListingDetails = () => {
                  <img
                    src={`http://localhost:4000/${item.replace("public", "")}`}
                    alt="ListingImages"
-                   className={`max-w-full ${index === 0 ? "object-contain rounded-3xl" : "rounded-2xl"}`}
+                   className={`${index === 0 ? "object-contain rounded-3xl" : "rounded-2xl"}`}
                  />
                </div>
              ))}

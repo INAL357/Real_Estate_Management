@@ -1,22 +1,25 @@
-//import React from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import ListingCard from "../components/ListingCard";
 
 const WishList = () => {
-  const WishList = useSelector((state) => state.user.wishList);
-
-  
-  //console.log("WishList:", WishList);
+  // Retrieve the wish list from Redux state
+  const wishList = useSelector((state) => state.user.wishList);
 
   return (
     <>
+      {/* Header Component */}
       <Header />
+
+      {/* Wish List Section */}
       <section className="max-padd-container pt-10">
         <h3 className="h3">Your Wish List</h3>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {WishList && WishList.length > 0 ? (
-            WishList.map(
+          {wishList && wishList.length > 0 ? (
+            // Map through the wish list items
+            wishList.map(
               ({
                 _id,
                 creator,
@@ -49,6 +52,7 @@ const WishList = () => {
               )
             )
           ) : (
+            // Display a message if the wish list is empty
             <p className="text-center text-gray-500">No items in your Wish List.</p>
           )}
         </div>

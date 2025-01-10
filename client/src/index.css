@@ -19,9 +19,9 @@
   width: 10px;
 }
 
-/* body {
-  @apply bg-slate-50; 
-} */
+body {
+  font-family: 'Arial', sans-serif;
+}
 
 
 /* Track */
@@ -315,4 +315,107 @@
   .bold-15 {
     @apply text-[15px] font-[700];
   }
+
+  /* Enhance readability */
+.listing-title {
+  @apply text-2xl font-bold mb-2;
+}
+
+.listing-price {
+  @apply text-xl font-semibold text-primary mb-4;
+}
+
+.listing-description {
+  @apply text-base text-gray-700 leading-relaxed mb-6;
+}
+
+.listing-meta {
+  @apply text-sm text-gray-500;
+}
+
+.listing-tags {
+  @apply flex gap-2 flex-wrap mt-4;
+}
+
+.listing-tags .tag {
+  @apply px-3 py-1 bg-gray-100 text-sm text-gray-700 rounded-full;
+}
+
+.listing-image {
+  @apply max-w-full h-auto rounded-lg shadow-lg mb-6;
+}
+
+
+/* Responsive Images */
+.listing-image {
+  @apply max-w-full h-auto rounded-lg shadow-lg;
+}
+
+@media (min-width: 768px) {
+  .listing-image {
+      @apply max-w-1/2;
+  }
+}
+/* Action Button */
+.btn-action {
+  @apply bg-primary text-white px-6 py-3 rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300;
+}
+
+.btn-action:disabled {
+  @apply bg-gray-300 cursor-not-allowed;
+}
+
+/* Rating Section */
+.listing-rating {
+  @apply flex items-center gap-2 mt-4;
+}
+
+.listing-rating .stars {
+  @apply flex gap-1;
+}
+
+.listing-rating .review-count {
+  @apply text-sm text-gray-500;
+}
+
+/* Fixed Pricing Section */
+.listing-price-section {
+  @apply fixed bottom-0 left-0 w-full bg-white shadow-lg py-4 px-6 z-10;
+}
+
+.listing-price-section .price {
+  @apply text-2xl font-bold text-primary;
+}
+
+.listing-price-section .discount {
+  @apply text-sm text-red-500 line-through ml-4;
+}
+
+/* Hover Effects */
+.listing-image:hover {
+  @apply transform scale-105 transition-transform duration-300;
+}
+
+.btn-action:hover {
+  @apply bg-primary-dark;
+}
+
+/* Spacing Between Elements */
+.listing-header {
+  @apply mb-8;
+}
+
+.listing-meta {
+  @apply mt-4 mb-6 text-gray-500;
+}
+
+.listing-description {
+  @apply text-base text-gray-800 leading-relaxed mb-8;
+}
+
+.listing-actions {
+  @apply flex items-center gap-4;
+}
+
+
 }
