@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTripList } from '../redux/state';
 import Loader from '../components/Loader';
 import ListingCard from '../components/ListingCard';
+import Header from '../components/Header';
 
 const TripList = () => {
   const [loading, setLoading] = useState(true);
@@ -41,6 +42,8 @@ const TripList = () => {
   return loading ? (
     <Loader />
   ) : (
+    <>
+    <Header/>
     <section className="max-padd-container pt-10">
       <h3 className="h3">Your trip list</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -82,6 +85,7 @@ const TripList = () => {
         )}
       </div>
     </section>
+    </>
   );
 };
 

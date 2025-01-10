@@ -75,7 +75,7 @@ const Listing = () => {
           </div>
         ))}
       </div>
-      
+      <br/>
       {/* Properties/Listing */}
       {loading ? (
         <Loader />
