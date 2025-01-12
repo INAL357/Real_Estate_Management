@@ -20,7 +20,10 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Inter', sans-serif;
+  background-color: #121212; /* Dark background for the futuristic look */
+  color: #eaeaea; /* Light text color */
+  line-height: 1.6;
 }
 
 
