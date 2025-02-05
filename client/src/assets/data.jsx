@@ -49,58 +49,59 @@ import {
 } from "react-icons/gi";
 import { AiFillCar } from "react-icons/ai";
 
+
 export const categories = [
   {
     label: "All",
     icon: <BiWorld />,
     color: "#bfdbfe", // blue-200
   },
-  {
-    label: "Urban Area",
+ {
+    label: "Urban Areas",
     icon: <MdOutlineVilla />,
     color: "#ffe4b5", // light beige
   },
   {
-    label: "Seaside",
+    label: "Seaside Properties",
     icon: <TbBeach />,
     color: "#e9d5ff", // purple-200
   },
   {
-    label: "Wind Farm",
+    label: "Hill Stations",
+    icon: <TbMountain />,
+    color: "#d1fae5", // green-200
+  },
+  {
+    label: "Rural Areas",
     icon: <GiWindmill />,
     color: "#d1fae5", // green-200
   },
   {
-    label: "Rural Area",
-    icon: <TbMountain />,
-    color: "#ccfbf1", // teal-200
-  },
-  {
-    label: "Desert Retreat",
-    icon: <GiCactus />, // Example icon
-    color: "#e5e7eb", // gray-200
-  },
-  {
-    label: "Private Island",
-    icon: <GiIsland />,
-    color: "#e0e7ff", // indigo-200
-  },
-  {
-    label: "Ski Resorts",
-    icon: <FaSkiing />,
-    color: "#fef3c7", // yellow-200
-  },
-  {
-    label: "Luxury Pools",
-    icon: <TbPool />,
-    color: "#cffafe", // cyan-200
-  },
-  {
-    label: "Lakeside",
+    label: "Lakeside Properties",
     icon: <GiBoatFishing />,
     color: "#bfdbfe", // blue-200
   },
+  {
+    label: "Metro Cities",
+    icon: <MdOutlineVilla />,
+    color: "#fef3c7", // yellow-200
+  },
+
+ 
+  {
+    label: "Heritage Properties",
+  icon: <GiIsland />,
+    color: "#f5a9a9", // soft red
+  },
+ 
+  {
+    label: "Resorts & Villas",
+    icon: <GiWindmill />,
+
+    color: "#d3f9e2", // pale green
+  },
 ];
+
 
 export const types = [
   {

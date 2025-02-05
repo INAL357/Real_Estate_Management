@@ -11,8 +11,8 @@ router.post("/create", async (req, res) => {
       customerId, 
       hostId, 
       listingId, 
-      startDate, 
-      endDate, 
+      visitDate, 
+      visitTime, 
       totalPrice 
     } = req.body;
 
@@ -25,8 +25,8 @@ router.post("/create", async (req, res) => {
       customerId,
       hostId,
       listingId,
-      startDate,
-      endDate, 
+      visitDate,
+      visitTime, 
       totalPrice,
     });
 

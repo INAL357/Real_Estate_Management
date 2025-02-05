@@ -7,8 +7,8 @@ const bookingSchema = new mongoose.Schema(
 
     hostId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     listingId: { type: mongoose.Schema.Types.ObjectId, ref: "Listing" }, 
-    startDate: { type: String, required: true }, 
-    endDate: { type: String, required: true },   
+    visitDate: {type: Date, required: true }, 
+    visitTime: {type: String,required: true },     
     totalPrice: { type: Number, required: true },
   },
   { timestamps: true } 

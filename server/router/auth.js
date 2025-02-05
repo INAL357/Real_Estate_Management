@@ -17,9 +17,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+
 // Registration endpoint
 router.post('/register', async (req, res) => {
-  const { firstname, lastname, email, password, confirmPassword } = req.body;
+  const { firstname, lastname, email, password, confirmPassword, isAdmin } = req.body;
 
   if (!firstname || !lastname || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: 'All fields are required' });
@@ -43,6 +44,7 @@ router.post('/register', async (req, res) => {
       lastname,
       email,
       password: hashedPassword,
+      isAdmin: isAdmin || false, // Default to false if not provided
     });
 
     await newUser.save();
@@ -81,5 +83,4 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Login failed', error: error.message });
   }
 });
-
 export default router;

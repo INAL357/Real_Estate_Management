@@ -6,16 +6,15 @@ import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { FaPersonShelter } from 'react-icons/fa6';
 import { MdBed, MdOutlineBathroom, MdOutlineBedroomChild } from 'react-icons/md';
 import { facilities } from '../assets/data';
-import { DateRange } from 'react-date-range';
 import Footer from '../components/Footer';
-import 'react-date-range/dist/styles.css'; 
-import 'react-date-range/dist/theme/default.css'; 
 import { useSelector } from 'react-redux';
 
 const ListingDetails = () => {
    const [loading, setLoading] = useState(true);
    const { listingId } = useParams();
    const [listing, setListing] = useState(null);
+   const [visitDate, setVisitDate] = useState('');
+   const [visitTime, setVisitTime] = useState('');
 
    const getListingDetails = async () => {
      try {
@@ -39,14 +38,19 @@ const ListingDetails = () => {
        return;
      }
 
+     if (!visitDate || !visitTime) {
+       alert("Please select a visit date and time.");
+       return;
+     }
+
      try {
        const bookingForm = {
          customerId,
          listingId,
          hostId: listing.creator._id,
-         startDate: dateRange[0].startDate.toDateString(),
-         endDate: dateRange[0].endDate.toDateString(),
-         totalPrice: listing?.price * dayCount,
+         visitDate,
+         visitTime,
+         totalPrice: listing?.price, 
          title: listing?.title,
          description: listing?.description,
        };
@@ -70,18 +74,6 @@ const ListingDetails = () => {
      }
    };
 
-   const [dateRange, setDateRange] = useState([{
-     startDate: new Date(),
-     endDate: new Date(),
-     key: "selection",
-   }]);
-
-   const handleSelect = (ranges) => setDateRange([ranges.selection]);
-
-   const start = new Date(dateRange[0].startDate);
-   const end = new Date(dateRange[0].endDate);
-   const dayCount = Math.round((end - start) / (1000 * 60 * 60 * 24));
-
    useEffect(() => {
      getListingDetails();
    }, [listingId]);
@@ -95,14 +87,14 @@ const ListingDetails = () => {
          {/* Left Section */}
          <div className="flex-1">
            <div>
-             <h3 className="h3">{listing?.title}</h3>
-             <div className="flex items-center gap-x-1 pb-1">
-               <HiOutlineLocationMarker />
+             <h3 className="text-3xl font-semibold text-gray-800">{listing?.title}</h3>
+             <div className="flex items-center gap-x-2 text-gray-600 pb-2">
+               <HiOutlineLocationMarker className="text-xl" />
                <p>
                  {listing?.type} in {listing?.city}, {listing?.province}, {listing?.country}
                </p>
              </div>
-             <div className="flex items-center gap-4 capitalize pt-5">
+             <div className="flex items-center gap-6 capitalize pt-5 text-gray-700">
                <span>
                  <FaPersonShelter className="text-xl" />
                  <p>{listing?.guestCount} Guests</p>
@@ -122,7 +114,7 @@ const ListingDetails = () => {
              </div>
            </div>
 
-           <div className="flex items-center gap-x-3 py-6">
+           <div className="flex items-center gap-x-4 py-6">
              <img
                src={`http://localhost:4000/${listing?.creator?.profileImagePath?.replace("public", "")}`}
                alt="creator"
@@ -130,74 +122,69 @@ const ListingDetails = () => {
                width={44}
                className="rounded-full"
              />
-             <h5 className="medium-14 capitalize">
+             <h5 className="text-lg font-medium text-gray-800 capitalize">
                HOSTED BY {listing?.creator?.firstname} {listing?.creator?.lastname}
              </h5>
            </div>
-           <p className="pb-3">{listing?.description}</p>
+           <p className="text-gray-600 pb-4">{listing?.description}</p>
 
            {/* Amenities/Facilities */}
-           <div>
-             <h4 className="h4 py-3">What this place offers?</h4>
-             <ul className="flex items-center flex-wrap gap-3">
+           <div className="py-5">
+             <h4 className="text-xl font-semibold text-gray-800 pb-3">What this place offers?</h4>
+             <ul className="flex items-center flex-wrap gap-4">
                {listing?.amenities?.[0]?.split(",").map((item, i) => (
-                 <li key={i} className="flex items-center gap-3 bg-white ring-1 ring-slate-900/5 p-4 rounded">
+                 <li key={i} className="flex items-center gap-3 bg-white shadow-sm p-4 rounded-md hover:bg-gray-100">
                    <div>{facilities.find((f) => f.name === item)?.icon}</div>
-                   <p>{item}</p>
+                   <p className="text-sm text-gray-700">{item}</p>
                  </li>
                ))}
              </ul>
            </div>
 
-           {/* Booking Calendar */}
-           <div className="calendar-container">
-             <h4>How long do you want to stay?</h4>
-             <DateRange
-               ranges={dateRange}
-               onChange={handleSelect}
-               showSelectionPreview={true}
-               moveRangeOnFirstSelection={false}
-               months={2}
-               direction="horizontal"
-             />
+           {/* Visit Date & Time Selection */}
+           <div className="py-5">
+             <h4 className="text-xl font-semibold text-gray-800">Select Visit Date and Time:</h4>
+             <div className="flex flex-col gap-4">
+               <label className="text-gray-700">
+                 Visit Date:
+                 <input
+                   type="date"
+                   value={visitDate}
+                   onChange={(e) => setVisitDate(e.target.value)}
+                   className="p-3 border rounded-md mt-2"
+                   required
+                 />
+               </label>
+               
+               <label className="text-gray-700">
+                 Visit Time:
+                 <input
+                   type="time"
+                   value={visitTime}
+                   onChange={(e) => setVisitTime(e.target.value)}
+                   className="p-3 border rounded-md mt-2"
+                   required
+                 />
+               </label>
+             </div>
            </div>
 
-           <div className="flex gap-4">
-             <div>
-               <div className="flex-start gap-x-2 pt-2">
-                 <h5 className="bold-16">Total Stay:</h5>
-                 <p className="relative pt-0.5">&#8377;{listing?.price} x {dayCount}</p>
-               </div>
-               <div className="flex-start gap-x-2 pt-2">
-                 <h5 className="bold-16">Total Price:</h5>
-                 <p className="relative pt-0.5">&#8377;{listing?.price * dayCount}</p>
-               </div>
-             </div>
-
-             <div>
-               <div className="flex items-center gap-x-3 pt-2">
-                 <span className="bold-15">Start Date:</span>
-                 <p className="relative pt-0.5">{dateRange[0].startDate.toDateString()}</p>
-               </div>
-               <div className="flex gap-x-3 pt-2">
-                 <span className="bold-15">End Date:</span>
-                 <p className="relative pt-0.5">{dateRange[0].endDate.toDateString()}</p>
-               </div>
-             </div>
+           <div className="py-4">
+             <p className="text-lg font-semibold text-gray-700">Cost of the Property: ₹{listing?.price}</p>
            </div>
 
            <button 
              type="submit" 
              onClick={handleSubmit} 
-             className="btn-secondary rounded-full flexCenter gap-x-2 left-0 capitalize"
+             className="rounded-full flex items-center gap-x-2 text-white bg-blue-600 hover:bg-blue-700 px-6 py-2 mt-4"
              disabled={isOwner}
            >
              {isOwner ? "You can't book your own property" : "Book the visit"}
            </button>
          </div>
 
-         {/* Right Image Gallery */}
-         <div className="flex-1">
+        {/* Right Image Gallery */}
+        <div className="flex-1">
            <div className="flex flex-wrap">
              {listing?.listingPhotoPaths?.map((item, index) => (
                <div key={index} className={`${index === 0 ? "w-full" : "w-1/2"} p-2`}>

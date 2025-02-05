@@ -6,6 +6,7 @@ const initialState = {
     wishList: [], 
     propertyList: [],
     reservationList: [], 
+    isAdmin: false, // Add this line
   },
   token: null,
   tripList: [],
@@ -16,7 +17,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setlogin: (state, action) => {
-      state.user = action.payload.user;
+      state.user = { ...action.payload.user, isAdmin: action.payload.user.isAdmin || false };
       state.token = action.payload.token;
     },
     setlogout: (state) => {
@@ -25,6 +26,7 @@ export const userSlice = createSlice({
         wishList: [],
         propertyList: [],
         reservationList: [],
+        isAdmin: false, // Add this line
       };
       state.token = null;
     },

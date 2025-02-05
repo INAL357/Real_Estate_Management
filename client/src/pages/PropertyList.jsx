@@ -30,6 +30,27 @@ const PropertyList = () => {
     }
   };
 
+  const handleDeleteProperty = async (listingId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/listing/${listingId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete property');
+      }
+
+      // Remove the deleted property from the state
+      const updatedPropertyList = propertyList.filter(property => property._id !== listingId);
+      dispatch(setPropertyList(updatedPropertyList));
+
+      alert('Property deleted successfully');
+    } catch (error) {
+      console.error('Error deleting property:', error);
+      alert('Error deleting property');
+    }
+  };
+
   useEffect(() => {
     if (user?._id) {
       getPropertyList();
@@ -47,38 +68,37 @@ const PropertyList = () => {
         <h3 className="h3">Your Property List</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {propertyList.length > 0 ? (
-            propertyList.map(
-              ({
-                _id,
-                creator,
-                listingPhotoPaths,
-                city,
-                province,
-                country,
-                category,
-                type,
-                price,
-                title,
-                description,
-                booking = false,
-              }) => (
-                <ListingCard
-                  key={_id}
-                  listingId={_id}
-                  creator={creator}
-                  listingPhotoPaths={listingPhotoPaths}
-                  city={city}
-                  province={province}
-                  country={country}
-                  category={category}
-                  type={type}
-                  price={price}
-                  title={title}
-                  description={description}
-                  booking={booking}
-                />
-              )
-            )
+            propertyList.map(({
+              _id,
+              creator,
+              listingPhotoPaths,
+              city,
+              province,
+              country,
+              category,
+              type,
+              price,
+              title,
+              description,
+              booking = false,
+            }) => (
+              <ListingCard
+                key={_id}
+                listingId={_id}
+                creator={creator}
+                listingPhotoPaths={listingPhotoPaths}
+                city={city}
+                province={province}
+                country={country}
+                category={category}
+                type={type}
+                price={price}
+                title={title}
+                description={description}
+                booking={booking}
+                onDelete={handleDeleteProperty}  // Pass handleDeleteProperty
+              />
+            ))
           ) : (
             <p className="text-center text-gray-500">No properties found in your list.</p>
           )}

@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     lastname: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    // profileImagePath: { type: String, default: "" },
+    isAdmin: { type: Boolean, default: false }, // Add this line
     tripList: { type: Array, default: [] },
     wishList: { type: Array, default: [] },
     propertyList: { type: Array, default: [] },

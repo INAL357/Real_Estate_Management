@@ -51,8 +51,8 @@ const ReservationList = () => {
         {reservationList.map(({ 
           listingId, 
           hostId, 
-          startDate, 
-          endDate, 
+          visitDate, 
+          visitTime, 
           totalPrice, 
            
           
@@ -68,10 +68,10 @@ const ReservationList = () => {
             listingPhotoPaths={listingId.listingPhotoPaths}  
             city={listingId.city}  
             province={listingId.province}
-            country={listingId.country}
+            
             category={listingId.category}
-            startDate={startDate}
-            endDate={endDate}
+            visitDate={visitDate}
+            visitTime={visitTime}
             totalPrice={totalPrice}
             title={listingId.title}
             description={listingId.description}
