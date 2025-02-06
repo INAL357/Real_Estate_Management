@@ -86,6 +86,24 @@ router.get("/:userId/reservation", async (req, res) => {
   }
 });
 
+router.get("/users/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);  // Find user by userId
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return only necessary user details (like isAdmin)
+    res.status(200).json({ isAdmin: user.isAdmin, firstname: user.firstname });
+  } catch (err) {
+    console.error("Error fetching user:", err.message);
+    res.status(500).json({ message: "Error fetching user", error: err.message });
+  }
+});
+
+
 
 
 

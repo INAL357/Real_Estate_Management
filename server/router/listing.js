@@ -27,7 +27,7 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
       aptSuite,
       city,
       province,
-      country,
+      phoneNumber,
       guestCount,
       bedroomCount,
       bedCount,
@@ -53,7 +53,7 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
       aptSuite,
       city,
       province,
-      country,
+      phoneNumber,
       guestCount,
       bedroomCount,
       bedCount,
@@ -148,6 +148,20 @@ router.delete("/:listingId", async (req, res) => {
   try {
     const { listingId } = req.params;
     const deletedListing = await Listing.findByIdAndDelete(listingId);
+<<<<<<< HEAD
+=======
+
+    if (!deletedListing) {
+      return res.status(404).json({ message: "Listing not found!" });
+    }
+
+    res.status(200).json({ message: "Listing deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting listing:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+>>>>>>> 93352ae (commit)
 
     if (!deletedListing) {
       return res.status(404).json({ message: "Listing not found!" });
@@ -160,7 +174,25 @@ router.delete("/:listingId", async (req, res) => {
   }
 });
 
+// router.delete("/:userId/reservation/:bookingId", async (req, res) => {
+//   try {
+//     const { userId, bookingId } = req.params;
 
+//     // Find and delete the booking
+//     const deletedBooking = await Booking.findOneAndDelete({
+//       _id: bookingId,
+//       $or: [{ customerId: userId }, { hostId: userId }], // Ensure the user is either the customer or host
+//     });
 
+//     if (!deletedBooking) {
+//       return res.status(404).json({ message: "Booking not found or unauthorized!" });
+//     }
+
+//     res.status(200).json({ message: "Reservation canceled successfully!" });
+//   } catch (err) {
+//     console.error("Error canceling reservation:", err.message);
+//     res.status(500).json({ message: "Error canceling reservation", error: err.message });
+//   }
+// });
 
 export default router;

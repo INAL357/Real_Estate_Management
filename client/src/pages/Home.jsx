@@ -5,7 +5,7 @@ import Features from '../components/Features';
 import Listing from '../components/Listing';
 import About from'../components/About';
 import Footer from '../components/Footer';
-import ListingCard from '../components/ListingCard';
+
 
 
 const Home = () => {

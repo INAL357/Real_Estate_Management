@@ -9,7 +9,8 @@ const listingSchema = new mongoose.Schema(
     aptSuite: { type: String, required: true },
     city: { type: String, required: true },
     province: { type: String, required: true },
-    country: { type: String, required: true },
+    phoneNumber: { type: String, required: true }, 
+
     guestCount: { type: Number, required: true },
     bedroomCount: { type: Number, required: true },
     bedCount: { type: Number, required: true },

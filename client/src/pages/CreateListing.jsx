@@ -74,7 +74,7 @@ const[fromlocation,setFromlocation]=useState({
     aptSuite:"",
     city:"",
     province:"",
-    country:"",
+    phoneNumber:"",
 });
 
 const handlechangeLocation = (e)=>{
@@ -113,7 +113,7 @@ const handleSelectAmenities = (facility) => {
      listingForm.append("aptSuite", fromlocation.aptSuite);
      listingForm.append("city", fromlocation.city);
      listingForm.append("province", fromlocation.province);
-     listingForm.append("country", fromlocation.country);
+     listingForm.append("phoneNumber", fromlocation.phoneNumber);
      listingForm.append("guestCount", guestCount);
      listingForm.append("bedroomCount", bedroomCount);
      listingForm.append("bedCount", bedCount);
@@ -265,12 +265,12 @@ const handleSelectAmenities = (facility) => {
                   />
                 </div>
                 <div className="w-1/2">
-                  <h5 className="h5">Country:</h5>
+                  <h5 className="h5">Phone Number:</h5>
                   <input  onChange={handlechangeLocation} 
-                  value={fromlocation.country}
+                  value={fromlocation.phoneNumber}
                     type="text"
-                    name="country"
-                    placeholder="Country"
+                    name="phoneNumber"
+                    placeholder="Phone Number"
                     required
                     className="bg-white p-2 text-sm outline-none border-none mb-2 rounded ring-1 ring-slate-900/5"
                   />

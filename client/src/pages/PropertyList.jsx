@@ -96,7 +96,12 @@ const PropertyList = () => {
                 title={title}
                 description={description}
                 booking={booking}
+<<<<<<< HEAD
                 onDelete={handleDeleteProperty}  // Pass handleDeleteProperty
+=======
+                onDelete={handleDeleteProperty}
+                isPropertyListPage={true} // Pass this prop to indicate the user is on the PropertyList page
+>>>>>>> 93352ae (commit)
               />
             ))
           ) : (

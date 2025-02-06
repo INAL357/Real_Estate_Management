@@ -88,7 +88,7 @@ const Listing = () => {
               listingPhotoPaths,
               city,
               province,
-              country,
+              phoneNumber,
               category,
               type,
               price,
@@ -103,7 +103,7 @@ const Listing = () => {
                 listingPhotoPaths={listingPhotoPaths}
                 city={city}
                 province={province}
-                country={country}
+                phoneNumber={phoneNumber}
                 category={category}
                 type={type}
                 price={price}

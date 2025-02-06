@@ -25,6 +25,8 @@ export default function App() {
           <Route path="/:userId/wishlist" element={<WishList />} />
           <Route path="/:userId/listing" element={<PropertyList />} />
           <Route path="/:userId/reservation" element={<ReservationList />} />
+        
+
         </Routes>
       </div>
     </BrowserRouter>
