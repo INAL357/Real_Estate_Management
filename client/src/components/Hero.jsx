@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import circle from "./../assets/circle.png";
-// import client1 from "./../assets/person-1.jpg";
-// import client2 from "./../assets/person-2.jpg";
+import circle from "./../assets/circle.png";
+import client1 from "./../assets/person-1.jpg";
+import client2 from "./../assets/person-2.jpg";
 import sideimg from "./../assets/house1.jpg";
 import sideimg1 from "./../assets/property00.jpg";
 import sideimg2 from "./../assets/omerghgh.jpg";
@@ -49,19 +49,19 @@ const Hero = () => {
               </Link>
             )}
           </div>
-<<<<<<< HEAD
+
           <div className="flex relative">
             <img src={circle} alt="Circle graphic" className="rounded-full h-[99px] z-30" />
             <img src={client1} alt="Client 1" className="rounded-full h-[80px] shadow-sm absolute left-16 z-30" />
             <img src={client2} alt="Client 2" className="rounded-full h-[80px] shadow-sm absolute left-32 z-10" />
           </div>
-=======
+
           {/* <div className="flex relative">
             <img src={circle} alt="Circle graphic" className="rounded-full h-[99px] z-30" />
             <img src={client1} alt="Client 1" className="rounded-full h-[80px] shadow-sm absolute left-16 z-30" />
             <img src={client2} alt="Client 2" className="rounded-full h-[80px] shadow-sm absolute left-32 z-10" />
           </div> */}
->>>>>>> 93352ae (commit)
+
         </div>
 
         {/* Right Section */}

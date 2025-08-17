@@ -67,7 +67,7 @@ const ReservationList = () => {
     <Loader />
   ) : (
     <>
-<<<<<<< HEAD
+
     <Header/>
     <section className="max-padd-container pt-10">
       <h3 className="h3">Your ReservationList list</h3>
@@ -104,7 +104,7 @@ const ReservationList = () => {
         ))}
       </div>
     </section>
-=======
+
       <Header />
       <section className="max-padd-container pt-10">
         <h3 className="h3">Your Reservation List</h3>
@@ -137,7 +137,7 @@ const ReservationList = () => {
           )}
         </div>
       </section>
->>>>>>> 93352ae (commit)
+
     </>
   );
 };

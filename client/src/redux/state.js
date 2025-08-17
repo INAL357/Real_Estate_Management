@@ -58,9 +58,8 @@ export const {
   setReservationList,
 } = userSlice.actions;
 
-<<<<<<< HEAD
-export default userSlice.reducer;
-=======
+
 export default userSlice.reducer;
 
->>>>>>> 93352ae (commit)
+
+

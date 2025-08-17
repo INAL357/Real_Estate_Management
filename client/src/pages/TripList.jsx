@@ -69,7 +69,7 @@ const TripList = () => {
     <Loader />
   ) : (
     <>
-<<<<<<< HEAD
+
     <Header/>
     <section className="max-padd-container pt-10">
       <h3 className="h3">Your trip list</h3>
@@ -112,7 +112,7 @@ const TripList = () => {
         )}
       </div>
     </section>
-=======
+
       <Header />
       <section className="max-padd-container pt-10">
         <h3 className="h3">Your Trip List</h3>
@@ -146,7 +146,7 @@ const TripList = () => {
           )}
         </div>
       </section>
->>>>>>> 93352ae (commit)
+
     </>
   );
 };
