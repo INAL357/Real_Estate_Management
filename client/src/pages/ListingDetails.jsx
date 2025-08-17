@@ -33,7 +33,7 @@ const ListingDetails = () => {
    const navigate = useNavigate();
 
    const handleSubmit = async () => {
-<<<<<<< HEAD
+
      if (!customerId) {
        navigate('/login');
        return;
@@ -74,48 +74,8 @@ const ListingDetails = () => {
        console.log("Submit Booking Failed", err.message);
      }
    };
-=======
-    if (!customerId) {
-      navigate('/login');
-      return;
-    }
+
   
-    if (!visitDate || !visitTime) {
-      alert("Please select a visit date and time.");
-      return;
-    }
-  
-    try {
-      const bookingForm = {
-        customerId,
-        listingId,
-        hostId: listing.creator._id,
-        visitDate,
-        visitTime,
-        totalPrice: listing?.price, 
-        title: listing?.title,
-        description: listing?.description,
-      };
-  
-      const response = await fetch("http://localhost:4000/booking/create", { 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(bookingForm),
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        navigate(`/${customerId}/trips`);
-      } else {
-        alert(data.message); // Show error message if property is already booked
-      }
-    } catch (err) {
-      console.log("Submit Booking Failed", err.message);
-    }
-  };
-  
->>>>>>> 93352ae (commit)
 
    useEffect(() => {
      getListingDetails();
