@@ -13,7 +13,7 @@ const PropertyList = () => {
 
   const getPropertyList = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/user/${user._id}/listing`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/${user._id}/listing`, {
         method: "GET",
       });
 
@@ -32,7 +32,7 @@ const PropertyList = () => {
 
   const handleDeleteProperty = async (listingId) => {
     try {
-      const response = await fetch(`http://localhost:4000/listing/${listingId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/listing/${listingId}`, {
         method: 'DELETE',
       });
 

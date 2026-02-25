@@ -48,7 +48,7 @@ const ListingCard = ({
           {listingPhotoPaths.map((photo, i) => (
             <div key={i} className="flex-none w-full h-64 md:h-80">
               <img
-                src={`http://localhost:4000/${photo.replace("public", "")}`}
+                src={`${import.meta.env.VITE_API_URL}/${photo.replace("public", "")}`}
                 alt={`Photo ${i + 1}`}
                 className="w-full h-full object-cover rounded-2xl transition-opacity duration-500 ease-in-out"
               />

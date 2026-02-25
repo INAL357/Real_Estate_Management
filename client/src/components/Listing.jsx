@@ -18,8 +18,8 @@ const Listing = () => {
     setLoading(true); // Reset loading state before fetching data
     try {
       const response = await fetch(
-        selectCategory !== "All"? `http://localhost:4000/listing?qCategory=${selectCategory}`
-          : "http://localhost:4000/listing",
+        selectCategory !== "All"? `${import.meta.env.VITE_API_URL}/listing?qCategory=${selectCategory}`
+          : "${import.meta.env.VITE_API_URL}/listing",
         { method: "GET" }
       );
   

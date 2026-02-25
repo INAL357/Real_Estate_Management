@@ -1,7 +1,6 @@
 import express from "express";
 import multer from "multer";
 import Listing from "../models/Listing.js";
-import mongoose from 'mongoose';
 const router = express.Router();
 
 // Configuring multer for file uploads

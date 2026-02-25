@@ -15,7 +15,7 @@ const TripList = () => {
 
   const getTripList = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/user/${userId}/trips`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/${userId}/trips`, {
         method: "GET",
       });
 
@@ -35,7 +35,7 @@ const TripList = () => {
   const handleCancelTrip = async (bookingId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/booking/user/${userId}/reservation/${bookingId}/cancel`,
+        `${import.meta.env.VITE_API_URL}/booking/user/${userId}/reservation/${bookingId}/cancel`,
         { method: "DELETE" }
       );
   

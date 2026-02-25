@@ -14,19 +14,24 @@ const Registration = () => {
 
 
  
-  const handleSubmit = async()=>{
-      try {
-        await axios.post("http://localhost:4000/api/auth/register",{
-          firstname,
-          lastname,
-          email,
-          password,
-          confirmPassword,
-        })
-      } catch (error) {
-        console.log(error.message)
+  const handleSubmit = async (e) => {
+  e.preventDefault(); // 🔥 VERY IMPORTANT
+
+  try {
+    await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/auth/register`,
+      {
+        firstname,
+        lastname,
+        email,
+        password,
+        confirmPassword,
       }
+    );
+  } catch (error) {
+    console.log(error.message);
   }
+};
 
   return (
     <div className="absolute inset-0 bg-black/40 z-50 flex items-center justify-center">

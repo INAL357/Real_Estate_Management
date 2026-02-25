@@ -14,7 +14,7 @@ const Search = () => {
   
 const getSearchListing = async ()=>{
     try{
-        const response =await fetch(`http://localhost:4000/listing/search/${search}`,{
+        const response =await fetch(`${import.meta.env.VITE_API_URL}/listing/search/${search}`,{
             method:"GET"
         })
         const data = await response.json()

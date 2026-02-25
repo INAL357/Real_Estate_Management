@@ -133,11 +133,11 @@ const handleSelectAmenities = (facility) => {
         listingForm.append("listingPhotos", photo);
       });
   
-      const response = await fetch("http://localhost:4000/listing/create", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/listing/create`, {
         method: "POST",
         body: listingForm,
       });
-     // const response = await axios.post("http://localhost:4000/listing/create", listingForm);
+     // const response = await axios.post(`${import.meta.env.VITE_API_URL}/listing/create`, listingForm);
     
         if(response.ok){
           navigate("/")

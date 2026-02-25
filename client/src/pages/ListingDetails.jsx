@@ -18,7 +18,7 @@ const ListingDetails = () => {
 
    const getListingDetails = async () => {
      try {
-       const response = await fetch(`http://localhost:5000/listing/${listingId}`, { method: "GET" });
+       const response = await fetch(`${import.meta.env.VITE_API_URL}/listing/${listingId}`, { method: "GET" });
        const data = await response.json();
        setListing(data);
        setLoading(false);
@@ -56,7 +56,7 @@ const ListingDetails = () => {
          description: listing?.description,
        };
 
-       const response = await fetch("http://localhost:5000/booking/create", { 
+       const response = await fetch("${import.meta.env.VITE_API_URL}/booking/create", { 
          method: "POST",
          headers: {
            "Content-Type": "application/json",
@@ -119,7 +119,7 @@ const ListingDetails = () => {
 
            <div className="flex items-center gap-x-4 py-6">
              <img
-               src={`http://localhost:4000/${listing?.creator?.profileImagePath?.replace("public", "")}`}
+               src={`${import.meta.env.VITE_API_URL}/${listing?.creator?.profileImagePath?.replace("public", "")}`}
                alt="creator"
                height={44}
                width={44}
@@ -192,7 +192,7 @@ const ListingDetails = () => {
              {listing?.listingPhotoPaths?.map((item, index) => (
                <div key={index} className={`${index === 0 ? "w-full" : "w-1/2"} p-2`}>
                  <img
-                   src={`http://localhost:5000/${item.replace("public", "")}`}
+                   src={`${import.meta.env.VITE_API_URL}/${item.replace("public", "")}`}
                    alt="ListingImages"
                    className={`${index === 0 ? "object-contain rounded-3xl" : "rounded-2xl"}`}
                  />
