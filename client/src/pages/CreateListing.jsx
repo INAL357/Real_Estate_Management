@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import{FaMinus ,FaPlus }from 'react-icons/fa6';
 import Header from "../components/Header";
 import { useSelector } from "react-redux";
+import axios from 'axios';
 
 
 const CreateListing = () => {
@@ -101,65 +102,132 @@ const handleSelectAmenities = (facility) => {
 
   console.log(amenities)
 
-  const handlepost = async (e) => {
-    e.preventDefault();
-    try{
+ const handlepost = async (e) => {
+  e.preventDefault();
 
-     const listingForm = new FormData();
-     listingForm.append("creator", creatorId);
-     listingForm.append("category", category);
-     listingForm.append("type", type);
-     listingForm.append("streetAddress", fromlocation.streetAddress);
-     listingForm.append("aptSuite", fromlocation.aptSuite);
-     listingForm.append("city", fromlocation.city);
-     listingForm.append("province", fromlocation.province);
-     listingForm.append("phoneNumber", fromlocation.phoneNumber);
-     listingForm.append("guestCount", guestCount);
-     listingForm.append("bedroomCount", bedroomCount);
-     listingForm.append("bedCount", bedCount);
-     listingForm.append("bathroomCount", bathroomCount);
-     listingForm.append("amenities", amenities);
-     listingForm.append("title", description.title);
-     listingForm.append("description", description.description);
-     listingForm.append("price", description.price);
- 
-     photos.forEach((photo) => {
-       listingForm.append("listingPhotos", photo);
-     });
-      console.log(listingForm+"listing form")
+  try {
+    const listingForm = new FormData();
 
+    listingForm.append("creator", creatorId);
+    listingForm.append("category", category);
+    listingForm.append("type", type);
 
-      photos.forEach((photo) => {
-        listingForm.append("listingPhotos", photo);
-      });
-  
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/listing/create`, {
-        method: "POST",
-        body: listingForm,
-      });
-     // const response = await axios.post(`${import.meta.env.VITE_API_URL}/listing/create`, listingForm);
-    
-        if(response.ok){
-          navigate("/")
-        }
-           }catch(err){
-       console.log("publish listing failed",err.message)
-            }
-         };
+    listingForm.append(
+      "streetAddress",
+      fromlocation.streetAddress
+    );
+
+    listingForm.append(
+      "aptSuite",
+      fromlocation.aptSuite
+    );
+
+    listingForm.append(
+      "city",
+      fromlocation.city
+    );
+
+    listingForm.append(
+      "province",
+      fromlocation.province
+    );
+
+    listingForm.append("country", "India");
+
+    listingForm.append(
+      "phoneNumber",
+      fromlocation.phoneNumber
+    );
+
+    listingForm.append(
+      "guestCount",
+      guestCount
+    );
+
+    listingForm.append(
+      "bedroomCount",
+      bedroomCount
+    );
+
+    listingForm.append(
+      "bedCount",
+      bedCount
+    );
+
+    listingForm.append(
+      "bathroomCount",
+      bathroomCount
+    );
+
+    listingForm.append(
+      "amenities",
+      JSON.stringify(amenities)
+    );
+
+    listingForm.append(
+      "title",
+      description.title
+    );
+
+    listingForm.append(
+      "description",
+      description.description
+    );
+
+    listingForm.append(
+      "price",
+      description.price
+    );
+
+    photos.forEach((photo) => {
+      listingForm.append(
+        "listingPhotos",
+        photo
+      );
+    });
+
+    console.log("Sending listing...");
+
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/listing/create`,
+      listingForm
+    );
+
+    console.log("Listing created:", response.data);
+
+    navigate("/");
+    console.log("API URL:", import.meta.env.VITE_API_URL);
+
+for (const [key, value] of listingForm.entries()) {
+  console.log(
+    key,
+    value instanceof File
+      ? `${value.name} (${value.size} bytes)`
+      : value
+  );
+}
+  } catch (err) {
+    console.error(
+      "Publish listing failed:",
+      err.response?.data || err.message
+    );
+  }
+};
          console.log("creatorid",creatorId)
+
+         
 
   return (
     <>
       <Header />
       
-      <section className="max-padd-conatiner py-10 bg-slate-100">
+      <section className="py-10 max-padd-conatiner bg-slate-100">
         <h3 className="h3">Add Properties</h3>
         <form onSubmit={handlepost} method="post">
-          <h4 className="h4 my-4">Describe Your Property</h4>
+          <h4 className="my-4 h4">Describe Your Property</h4>
           {/* Categories Container */}
           <div
-            className="hide-scrollbar flex gap-x-4 bg-slate-50 ring-1 ring-slate-400/5 shadow-sm 
-          rounded-2xl px-5 py-4 overflow-x-auto mb-8"
+            className="flex px-5 py-4 mb-8 overflow-x-auto shadow-sm hide-scrollbar gap-x-4 bg-slate-50 ring-1 ring-slate-400/5 rounded-2xl"
           >
             {categories.map((items) => (
               <div
@@ -170,7 +238,7 @@ const handleSelectAmenities = (facility) => {
               >
                 {/* Category Icon */}
                 <div
-                  className="text-secondary rounded-full h-12 w-12 p-2 flex items-center justify-center text-lg"
+                  className="flex items-center justify-center w-12 h-12 p-2 text-lg rounded-full text-secondary"
                   style={{ backgroundColor: `${items.color}` }}
                 >
                   {items.icon}
@@ -187,10 +255,10 @@ const handleSelectAmenities = (facility) => {
             ))}
           </div>
           {/* Container types & location */}
-          <div className="flex-col flex xl:flex-row gap-x-16">
+          <div className="flex flex-col xl:flex-row gap-x-16">
             <div className="flex-1">
               {/* Types of places */}
-              <h4 className="h4 my-4">What is the type of your place?</h4>
+              <h4 className="my-4 h4">What is the type of your place?</h4>
               <div className="flex flex-col gap-3 mb-6">
                 {types.map((items) => (
                   <div
@@ -224,7 +292,7 @@ const handleSelectAmenities = (facility) => {
                     name="streetAddress"
                     placeholder="Street"
                     required
-                    className="bg-white p-2 text-sm outline-none border-none mb-2 rounded ring-1 ring-slate-900/5"
+                    className="p-2 mb-2 text-sm bg-white border-none rounded outline-none ring-1 ring-slate-900/5"
                   />
                 </div>
               </div>
@@ -236,7 +304,7 @@ const handleSelectAmenities = (facility) => {
                     type="text"
                     name="aptSuite"
                     placeholder="Apt, Suite (opt)"
-                    className="bg-white p-2 text-sm outline-none border-none mb-2 rounded ring-1 ring-slate-900/5"
+                    className="p-2 mb-2 text-sm bg-white border-none rounded outline-none ring-1 ring-slate-900/5"
                   />
                 </div>
                 <div className="w-1/2">
@@ -247,7 +315,7 @@ const handleSelectAmenities = (facility) => {
                     name="city"
                     placeholder="City"
                     required
-                    className="bg-white p-2 text-sm outline-none border-none mb-2 rounded ring-1 ring-slate-900/5"
+                    className="p-2 mb-2 text-sm bg-white border-none rounded outline-none ring-1 ring-slate-900/5"
                   />
                 </div>
               </div>
@@ -261,7 +329,7 @@ const handleSelectAmenities = (facility) => {
                     name="province"
                     placeholder="Province"
                     required
-                    className="bg-white p-2 text-sm outline-none border-none mb-2 rounded ring-1 ring-slate-900/5"
+                    className="p-2 mb-2 text-sm bg-white border-none rounded outline-none ring-1 ring-slate-900/5"
                   />
                 </div>
                 <div className="w-1/2">
@@ -272,14 +340,14 @@ const handleSelectAmenities = (facility) => {
                     name="phoneNumber"
                     placeholder="Phone Number"
                     required
-                    className="bg-white p-2 text-sm outline-none border-none mb-2 rounded ring-1 ring-slate-900/5"
+                    className="p-2 mb-2 text-sm bg-white border-none rounded outline-none ring-1 ring-slate-900/5"
                   />
                 </div>
               </div>
             </div>
           </div>
           {/* Essentials */}
-          <h4 className="h4 my-4">
+          <h4 className="my-4 h4">
             Provide some essential detail about your place?
           </h4>
           <div className="flex flex-wrap gap-4 mb-6 ">
@@ -291,18 +359,18 @@ const handleSelectAmenities = (facility) => {
             ].map(({ label, count, setCount }) => (
               <div
                 key={label}
-                className="flexCenter gap-x-4 ring-1 ring-slate-900/5 p-2 rounded"
+                className="p-2 rounded flexCenter gap-x-4 ring-1 ring-slate-900/5"
               >
                 <h5>{label}</h5>
-                <div className="flexCenter gap-x-2 bg-white">
+                <div className="bg-white flexCenter gap-x-2">
                   <FaMinus
                     onClick={() => count > 1 && setCount(count - 1)}
-                    className="h-6 w-6 bg-secondary text-xl p-1 rounded cursor-pointer"
+                    className="w-6 h-6 p-1 text-xl rounded cursor-pointer bg-secondary"
                   />
                   <p>{count}</p>
                   <FaPlus
                     onClick={() => setCount(count + 1)}
-                    className="h-6 w-6 text-xl bg-secondary text-white p-1 rounded cursor-pointer"
+                    className="w-6 h-6 p-1 text-xl text-white rounded cursor-pointer bg-secondary"
                   />
                 </div>
               </div>
@@ -310,7 +378,7 @@ const handleSelectAmenities = (facility) => {
           </div>
           <div>
             <h4>Description about the features of your location</h4>
-            <ul className="flex items-center flex-wrap gap-3 mb-10">
+            <ul className="flex flex-wrap items-center gap-3 mb-10">
   {facilities.map((card) => (
     <li
       key={card.name}
@@ -325,13 +393,13 @@ const handleSelectAmenities = (facility) => {
   ))}
 </ul>
             {/* Upload Images Section */}
-          <h4 className="h4 my-6">Including images showcasing your property?</h4>
+          <h4 className="my-6 h4">Including images showcasing your property?</h4>
 
 <DragDropContext onDragEnd={handleDragPost}>
   <Droppable droppableId="photos" direction="horizontal">
     {(provided) => (
       <div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 p-4 bg-gray-50 rounded-lg shadow-lg"
+        className="grid grid-cols-2 gap-4 p-4 rounded-lg shadow-lg sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 bg-gray-50"
         {...provided.droppableProps}
         ref={provided.innerRef}
       >
@@ -348,10 +416,10 @@ const handleSelectAmenities = (facility) => {
             />
             <label
               htmlFor="imageUpload"
-              className="group flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 hover:bg-gray-100 transition-colors cursor-pointer"
+              className="flex flex-col items-center justify-center p-6 transition-colors border-2 border-gray-300 border-dashed rounded-lg cursor-pointer group hover:bg-gray-100"
             >
-              <div className="h-52 w-full flexCenter">
-                <IoIosImages className="text-gray-400 group-hover:text-gray-600 transition-colors" />
+              <div className="w-full h-52 flexCenter">
+                <IoIosImages className="text-gray-400 transition-colors group-hover:text-gray-600" />
               </div>
               <p className="text-gray-500 group-hover:text-gray-700">
                 Upload from your device
@@ -373,12 +441,12 @@ const handleSelectAmenities = (facility) => {
                     <img
                       src={URL.createObjectURL(photo)}
                       alt="Property"
-                      className="aspect-square object-cover h-53 w-full rounded-lg shadow-md"
+                      className="object-cover w-full rounded-lg shadow-md aspect-square h-53"
                     />
                     <button
                       type="button"
                       onClick={() => handleRemovePhoto(index)}
-                      className="absolute top-2 right-2 bg-white p-1 rounded-full shadow-md hover:bg-gray-200"
+                      className="absolute p-1 bg-white rounded-full shadow-md top-2 right-2 hover:bg-gray-200"
                     >
                       <BiTrash className="text-red-600" />
                     </button>
@@ -397,10 +465,10 @@ const handleSelectAmenities = (facility) => {
             />
             <label
               htmlFor="imageUpload"
-              className="group flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 hover:bg-gray-100 transition-colors cursor-pointer"
+              className="flex flex-col items-center justify-center p-6 transition-colors border-2 border-gray-300 border-dashed rounded-lg cursor-pointer group hover:bg-gray-100"
             >
-              <div className="h-52 w-full flexCenter">
-                <IoIosImages className="text-gray-400 group-hover:text-gray-600 transition-colors" />
+              <div className="w-full h-52 flexCenter">
+                <IoIosImages className="text-gray-400 transition-colors group-hover:text-gray-600" />
               </div>
               <p className="text-gray-500 group-hover:text-gray-700">
                 Upload more images
@@ -413,20 +481,20 @@ const handleSelectAmenities = (facility) => {
     )}
   </Droppable>
 </DragDropContext>
-<h4 className="h4 my-5 ">How would Your characterize the charm and exicitement of your property</h4>
+<h4 className="my-5 h4 ">How would Your characterize the charm and exicitement of your property</h4>
 <div className="">
     <h5 className="h5">Title:</h5>
     <input onChange={handleDescription} value={description.title}
-     type="text" name="title" placeholder="Tiltle" required className="bg-white p-2 outline-none text-sm border-none mb-2 rounded ring-1 ring-slate-900/5 w-full"/>
+     type="text" name="title" placeholder="Tiltle" required className="w-full p-2 mb-2 text-sm bg-white border-none rounded outline-none ring-1 ring-slate-900/5"/>
     <h5>Description</h5>
     <textarea  onChange={handleDescription} value={description.description}
-     name="description" rows={10} placeholder="Description"required className="bg-white p-2 outline-none text-sm border-none mb-2 rounded ring-1 ring-slate-900/5 w-full resize-none" />
+     name="description" rows={10} placeholder="Description"required className="w-full p-2 mb-2 text-sm bg-white border-none rounded outline-none resize-none ring-1 ring-slate-900/5" />
     <input  onChange={handleDescription} value={description.price}
-    type="number" name="price" placeholder="100" required className="bg-white p-2 outline-none text-sm border-none mb-2 rounded ring-1 ring-slate-900/5 w-full"/>
+    type="number" name="price" placeholder="100" required className="w-full p-2 mb-2 text-sm bg-white border-none rounded outline-none ring-1 ring-slate-900/5"/>
     
 </div>
           </div>
-          <button type="submit" onClick={handlepost} className="btn-secondary rounded-full">Create Property</button>
+          <button type="submit" onClick={handlepost} className="rounded-full btn-secondary">Create Property</button>
         </form>
       </section>
     </>

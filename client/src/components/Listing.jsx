@@ -19,7 +19,7 @@ const Listing = () => {
     try {
       const response = await fetch(
         selectCategory !== "All"? `${import.meta.env.VITE_API_URL}/listing?qCategory=${selectCategory}`
-          : "${import.meta.env.VITE_API_URL}/listing",
+          : `${import.meta.env.VITE_API_URL}/listing`,
         { method: "GET" }
       );
   
@@ -42,17 +42,16 @@ const Listing = () => {
   }, [selectCategory]);
 
   return (
-    <section id="listing" className="max-padd-container py-12">
+    <section id="listing" className="py-12 max-padd-container">
       {/* Title */}
-      <div className="text-center pb-16">
+      <div className="pb-16 text-center">
         <h6 className="capitalize">From concept to reality</h6>
-        <h2 className="h2 capitalize">Discover our new Listing</h2>
+        <h2 className="capitalize h2">Discover our new Listing</h2>
       </div>
       
       {/* Categories Container */}
       <div
-        className="hide-scrollbar flex gap-x-4 bg-slate-50 ring-1 ring-slate-400/5 shadow-sm 
-        rounded-2xl px-5 py-4 overflow-x-auto"
+        className="flex px-5 py-4 overflow-x-auto shadow-sm hide-scrollbar gap-x-4 bg-slate-50 ring-1 ring-slate-400/5 rounded-2xl"
       >
         {categories.map((category) => (
           <div
@@ -65,13 +64,13 @@ const Listing = () => {
           >
             {/* Category Icon */}
             <div
-              className="text-secondary rounded-full h-12 w-12 p-2 flex items-center justify-center text-xl"
+              className="flex items-center justify-center w-12 h-12 p-2 text-xl rounded-full text-secondary"
               style={{ backgroundColor: `${category.color}` }}
             >
               {category.icon}
             </div>
             {/* Category Label */}
-            <p className="medium-14 text-center">{category.label}</p>
+            <p className="text-center medium-14">{category.label}</p>
           </div>
         ))}
       </div>
@@ -80,7 +79,7 @@ const Listing = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {listings.map(
             ({
               _id,
