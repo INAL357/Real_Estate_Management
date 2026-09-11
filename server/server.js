@@ -21,7 +21,7 @@ app.use(express.static("public"));
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://YOUR-FRONTEND.vercel.app",
+  "https://real-estate-management-sigma.vercel.app",
 ];
 
 app.use(
