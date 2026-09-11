@@ -12,7 +12,7 @@ const Listing = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState("All");
-  const listings = useSelector((state) => state.listings);
+ const listings = useSelector((state) => state.listings || []);
 
   const getQueryListing = async () => {
     setLoading(true); // Reset loading state before fetching data
