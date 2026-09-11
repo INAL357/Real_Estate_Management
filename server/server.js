@@ -10,6 +10,10 @@ import listingRoutes from "./router/listing.js";
 import bookingRoutes from "./router/booking.js";
 import userRoutes from "./router/user.js";
 
+import dns from "dns";
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
+
 const app = express();
 
 // --------------------
@@ -74,3 +78,4 @@ connectDB();
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
